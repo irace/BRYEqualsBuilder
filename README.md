@@ -7,7 +7,6 @@ Utility for determining object equality, based on Apache Commons [EqualsBuilder]
     if (self == object)                         return YES;
     if (![object isKindOfClass:[self class]])   return NO;
 
-
     return [[[[[[BRYEqualsBuilder builder]
                 appendObject:self.name otherObject:other.name]
                appendBool:self.isHidden otherBool:other.isHidden]
