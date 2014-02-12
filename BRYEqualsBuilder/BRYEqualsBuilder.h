@@ -16,6 +16,8 @@
 
 + (instancetype)builder;
 
++ (instancetype)builderComparingObject:(id)object withObject:(id)otherObject;
+
 - (BRYEqualsBuilder *)appendObject:(id)object otherObject:(id)otherObject;
 
 - (BRYEqualsBuilder *)appendInteger:(NSInteger)integer otherInteger:(NSInteger)otherInteger;
