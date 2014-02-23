@@ -14,9 +14,9 @@
 
 @property (nonatomic, readonly, getter = isEqual) BOOL equal;
 
-+ (instancetype)builder;
-
 + (instancetype)builderComparingObject:(id)object withObject:(id)otherObject;
+
++ (instancetype)builder;
 
 - (BRYEqualsBuilder *)appendObject:(id)object otherObject:(id)otherObject;
 

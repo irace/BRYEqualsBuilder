@@ -8,10 +8,14 @@
 
 #import "BRYEqualsBuilder.h"
 
+@interface BRYImmutableEqualsBuilder : BRYEqualsBuilder
+
+- (instancetype)initWithEquality:(BOOL)equal;
+
+@end
+
 @interface BRYEqualsBuilder()
 
-@property (nonatomic, getter = isSameObject) BOOL sameObject;
-@property (nonatomic, getter = isSameKindOfClass) BOOL sameKindOfClass;
 @property (nonatomic, getter = isEqual) BOOL equal;
 
 @end
@@ -21,31 +25,26 @@
 #pragma mark - Initialization
 
 + (instancetype)builderComparingObject:(id)object withObject:(id)otherObject {
-    return [[[self class] alloc] initWithObject:object otherObject:otherObject];
+    if (object == otherObject) {
+        return [[BRYImmutableEqualsBuilder alloc] initWithEquality:YES];
+    }
+    else if (![otherObject isKindOfClass:[object class]]) {
+        return [[BRYImmutableEqualsBuilder alloc] initWithEquality:NO];
+    }
+    
+    return [[BRYEqualsBuilder alloc] init];
 }
 
 + (instancetype)builder {
-    return [[[self class] alloc] init];
-}
-
-- (id)initWithObject:(id)object otherObject:(id)otherObject {
-    if (self = [super init]) {
-        if (object && otherObject) {
-            _sameObject = object == otherObject;
-            _sameKindOfClass = [otherObject isKindOfClass:[object class]];
-            
-            _equal = _sameObject || !_sameKindOfClass;
-        }
-        else {
-            _equal = YES;
-        }
-    }
-    
-    return self;
+    return [[BRYEqualsBuilder alloc] init];
 }
 
 - (id)init {
-    return [self initWithObject:nil otherObject:nil];
+    if (self = [super init]) {
+        _equal = YES;
+    }
+    
+    return self;
 }
 
 #pragma mark - Value comparison
@@ -75,6 +74,42 @@
 - (BRYEqualsBuilder *)incoroprateValueEquality:(BOOL)valueEquality {
     self.equal = self.equal && valueEquality;
     
+    return self;
+}
+
+@end
+
+@implementation BRYImmutableEqualsBuilder
+
+- (instancetype)initWithEquality:(BOOL)equal {
+    if (self = [super init]) {
+        self.equal = equal;
+    }
+    
+    return self;
+}
+
+- (id)init {
+    return [self initWithEquality:NO];
+}
+
+- (BRYEqualsBuilder *)appendObject:(id)object otherObject:(id)otherObject {
+    return self;
+}
+
+- (BRYEqualsBuilder *)appendInteger:(NSInteger)integer otherInteger:(NSInteger)otherInteger {
+    return self;
+}
+
+- (BRYEqualsBuilder *)appendUnsignedInteger:(NSUInteger)unsignedInteger otherUnsignedInteger:(NSInteger)otherUnsignedInteger {
+    return self;
+}
+
+- (BRYEqualsBuilder *)appendBool:(BOOL)boolean otherBool:(BOOL)otherBoolean {
+    return self;
+}
+
+- (BRYEqualsBuilder *)appendFloat:(CGFloat)floatValue otherFloat:(CGFloat)otherFloatValue {
     return self;
 }
 
