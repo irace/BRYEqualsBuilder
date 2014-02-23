@@ -4,11 +4,11 @@ Utility for determining object equality, based on Apache Commons [EqualsBuilder]
 
 ```objectivec
 - (BOOL)isEqual:(id)object {
-    return [[[[[[BRYEqualsBuilder builderComparingObject:self withObject:object]
-                appendObject:self.name otherObject:other.name]
-               appendBool:self.isHidden otherBool:other.isHidden]
-              appendFloat:self.width otherFloat:other.width]
-             appendInteger:self.index otherInteger:other.index].isEqual;
+    return [[[[[BRYEqualsBuilder builderComparingObject:self withObject:object]
+               appendObject:self.name otherObject:other.name]
+              appendBool:self.isHidden otherBool:other.isHidden]
+             appendFloat:self.width otherFloat:other.width]
+            appendInteger:self.index otherInteger:other.index].isEqual;
 }
 ```
 
