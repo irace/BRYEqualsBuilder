@@ -50,28 +50,28 @@
 #pragma mark - Value comparison
 
 - (BRYEqualsBuilder *)appendObject:(id)object otherObject:(id)otherObject {
-    return [self incoroprateValueEquality:((!object && !otherObject) || [object isEqual:otherObject])];
+    return [self incorporateValueEquality:((!object && !otherObject) || [object isEqual:otherObject])];
 }
 
 - (BRYEqualsBuilder *)appendInteger:(NSInteger)integer otherInteger:(NSInteger)otherInteger {
-    return [self incoroprateValueEquality:integer == otherInteger];
+    return [self incorporateValueEquality:integer == otherInteger];
 }
 
 - (BRYEqualsBuilder *)appendUnsignedInteger:(NSUInteger)unsignedInteger otherUnsignedInteger:(NSInteger)otherUnsignedInteger {
-    return [self incoroprateValueEquality:unsignedInteger == otherUnsignedInteger];
+    return [self incorporateValueEquality:unsignedInteger == otherUnsignedInteger];
 }
 
 - (BRYEqualsBuilder *)appendBool:(BOOL)boolean otherBool:(BOOL)otherBoolean {
-    return [self incoroprateValueEquality:boolean == otherBoolean];
+    return [self incorporateValueEquality:boolean == otherBoolean];
 }
 
 - (BRYEqualsBuilder *)appendFloat:(CGFloat)floatValue otherFloat:(CGFloat)otherFloatValue {
-    return [self incoroprateValueEquality:floatValue == otherFloatValue];
+    return [self incorporateValueEquality:floatValue == otherFloatValue];
 }
 
 #pragma mark - Private
 
-- (BRYEqualsBuilder *)incoroprateValueEquality:(BOOL)valueEquality {
+- (BRYEqualsBuilder *)incorporateValueEquality:(BOOL)valueEquality {
     self.equal = self.equal && valueEquality;
     
     return self;
